@@ -1,0 +1,9 @@
+version: '3.8'
+
+services:
+  stress-tester:
+    build: .
+    container_name: stress_tester
+    env_file: .env
+    entrypoint: ["/root/stress-tester"]
+    command: ["--url", "${URL}", "--requests", "${REQUESTS}", "--concurrency", "${CONCURRENCY}"]
