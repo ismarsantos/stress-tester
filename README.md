@@ -31,7 +31,7 @@ Após a execução dos testes, o sistema gera um relatório contendo:
 Clone o repositório para o seu ambiente local:
 
 ```sh
-git clone <URL_DO_REPOSITORIO>
+git clone https://github.com/ismarsantos/stress-tester
 cd stress-tester
 ```
 
@@ -39,7 +39,7 @@ cd stress-tester
 
 Crie um arquivo .env na raiz do projeto e defina as variáveis de ambiente:
 
-```
+```env
 URL=http://google.com
 REQUESTS=1000
 CONCURRENCY=10
@@ -81,23 +81,10 @@ Exemplo de execução:
 docker run --env-file .env stress-tester_stress-tester /root/stress-tester --url=$(grep URL .env | cut -d '=' -f2) --requests=$(grep REQUESTS .env | cut -d '=' -f2) --concurrency=$(grep CONCURRENCY .env | cut -d '=' -f2)
 ```
 
-## Estrutura do Projeto
-
-```
-stress-tester/
-├── Dockerfile
-├── docker-compose.yml
-├── go.mod
-├── go.sum
-├── main.go
-├── README.md
-└── .env
-```
-
 ## Licença
 
 Este projeto está licenciado sob a [MIT License](LICENSE).
 
 ## Contato
 
-Para mais informações ou dúvidas, entre em contato com [ismar.san@outlook.com](mailto:ismar.san@outlook.com).
+Para mais informações ou dúvidas, entre em contato com [ismar@diamantinastudio.com](mailto:ismar@diamantinastudio.com).
