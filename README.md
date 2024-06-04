@@ -35,17 +35,7 @@ git clone https://github.com/ismarsantos/stress-tester
 cd stress-tester
 ```
 
-### 2. Configurar Variáveis de Ambiente
-
-Crie um arquivo .env na raiz do projeto e defina as variáveis de ambiente:
-
-```env
-URL=http://google.com
-REQUESTS=1000
-CONCURRENCY=10
-```
-
-### 3. Construir e Executar a Imagem Docker
+### 2. Construir e Executar a Imagem Docker
 
 Remova qualquer contêiner e imagem anterior para garantir uma construção limpa. Construa a imagem Docker:
 
@@ -53,32 +43,20 @@ Remova qualquer contêiner e imagem anterior para garantir uma construção limp
 docker-compose build --no-cache
 ```
 
-Inicie os contêineres:
+### 3. Executar com Docker Run
+
 
 ```sh
-docker-compose up
+docker run stress-tester —url=http://google.com —requests=1000 —concurrency=10
 ```
 
-### 4. Executar Manualmente com Docker Run
+### 4. Resultado esperado
 
-Você pode executar o contêiner manualmente passando as variáveis de ambiente:
-
-```sh
-docker run --env-file .env stress-tester_stress-tester /root/stress-tester --url=$(grep URL .env | cut -d '=' -f2) --requests=$(grep REQUESTS .env | cut -d '=' -f2) --concurrency=$(grep CONCURRENCY .env | cut -d '=' -f2)
-```
-
-### Entrada de Parâmetros via CLI
-
-A ferramenta aceita os seguintes parâmetros via CLI:
-
-- `--url`: URL do serviço a ser testado.
-- `--requests`: Número total de requests.
-- `--concurrency`: Número de chamadas simultâneas.
-
-Exemplo de execução:
 
 ```sh
-docker run --env-file .env stress-tester_stress-tester /root/stress-tester --url=$(grep URL .env | cut -d '=' -f2) --requests=$(grep REQUESTS .env | cut -d '=' -f2) --concurrency=$(grep CONCURRENCY .env | cut -d '=' -f2)
+Total time taken: 48.505189456s
+Total requests: 1000
+200 OK: 1000
 ```
 
 ## Licença

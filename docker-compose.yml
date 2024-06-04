@@ -3,7 +3,9 @@ version: '3.8'
 services:
   stress-tester:
     build: .
-    container_name: stress_tester
-    env_file: .env
-    entrypoint: ["/root/stress-tester"]
-    command: ["--url", "${URL}", "--requests", "${REQUESTS}", "--concurrency", "${CONCURRENCY}"]
+    image: stress-tester:latest
+    environment:
+      - URL=http://google.com
+      - REQUESTS=1000
+      - CONCURRENCY=10
+    entrypoint: ["/stress-tester", "--url=${URL}", "--requests=${REQUESTS}", "--concurrency=${CONCURRENCY}"]

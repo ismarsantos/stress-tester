@@ -6,49 +6,33 @@ import (
 	"log"
 	"net/http"
 	"os"
-	"strconv"
 	"sync"
 	"time"
 
 	"github.com/spf13/cobra"
 )
 
-var url string
-var totalRequests int
-var concurrency int
+var (
+	url           string
+	totalRequests int
+	concurrency   int
+)
 
 var rootCmd = &cobra.Command{
 	Use:   "stress-tester",
-	Short: "A simple load testing tool",
+	Short: "A simple HTTP stress tester",
 	Run: func(cmd *cobra.Command, args []string) {
 		runStressTest(url, totalRequests, concurrency)
 	},
 }
 
 func init() {
-	rootCmd.Flags().StringVarP(&url, "url", "u", getEnv("URL", ""), "URL to test (required)")
+	rootCmd.Flags().StringVarP(&url, "url", "u", "http://localhost:8080", "URL to test (required)")
 	rootCmd.MarkFlagRequired("url")
-	rootCmd.Flags().IntVarP(&totalRequests, "requests", "r", getEnvInt("REQUESTS", 0), "Total number of requests (required)")
+	rootCmd.Flags().IntVarP(&totalRequests, "requests", "r", 1000, "Total number of requests (required)")
 	rootCmd.MarkFlagRequired("requests")
-	rootCmd.Flags().IntVarP(&concurrency, "concurrency", "c", getEnvInt("CONCURRENCY", 0), "Number of concurrent requests (required)")
+	rootCmd.Flags().IntVarP(&concurrency, "concurrency", "c", 10, "Number of concurrent requests (required)")
 	rootCmd.MarkFlagRequired("concurrency")
-}
-
-func getEnv(key string, defaultValue string) string {
-	if value, exists := os.LookupEnv(key); exists {
-		return value
-	}
-	return defaultValue
-}
-
-func getEnvInt(key string, defaultValue int) int {
-	if value, exists := os.LookupEnv(key); exists {
-		intValue, err := strconv.Atoi(value)
-		if err == nil {
-			return intValue
-		}
-	}
-	return defaultValue
 }
 
 func main() {

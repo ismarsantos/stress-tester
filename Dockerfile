@@ -27,4 +27,8 @@ COPY --from=builder /app/stress-tester .
 # Adicionar comando de listagem para verificar a presença do binário
 RUN ls -l /root
 
-CMD ["/root/stress-tester"]
+# Executar o binário
+ENTRYPOINT ["/root/stress-tester"]
+
+# Argumentos padrão
+CMD ["--url=http://google.com", "--requests=1000", "--concurrency=10"]
